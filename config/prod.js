@@ -5,6 +5,3 @@ module.exports = {
     process.env.MONGO_URI,
     cookiekey: process.env.COOKIE_KEY
 };
-
-
-AIzaSyDG3xjyadwIyuILKJkGwE4F-sqmp6dQBs8
