@@ -6,3 +6,5 @@ module.exports = {
     cookiekey: process.env.COOKIE_KEY,
     callbackURL:'https://frozen-ravine-23768.herokuapp.com/google/callback'
 };
+
+//mongodb+srv://myuser:lWKqZsLoIg0nt8XO@cluster0.nrvac.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
