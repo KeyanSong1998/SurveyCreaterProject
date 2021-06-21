@@ -31,6 +31,7 @@ passport.use(new GoogleStrategy({
     clientID: keys.googleClidentID,
     clientSecret: keys.googleClidentSecret,
     callbackURL: '/auth/google/callback',
+    key:AIzaSyDG3xjyadwIyuILKJkGwE4F-sqmp6dQBs8,
     proxy: true
     },(accessToken,refreshToken,profile,done) =>{
         //After we loging, we add the returned user information into mongoDB
