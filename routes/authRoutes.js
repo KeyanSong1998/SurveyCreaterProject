@@ -15,6 +15,17 @@ module.exports = (app) =>{
     
     // this request will have authorized code and google give us the profile info of user we need
     app.get('/auth/google/callback', passport.authenticate('google'));
+
+    app.get('/api/logout',(req,res) => {
+        // logout is attach automaticlly in req by passport.
+        // it will kills the id in cookie
+        req.logout();
+        res.send(req.user);
+    });
+
+    app.get('/api/current_user',(req,res) =>{
+        res.send(req.user);
+    });
 };
 
     
