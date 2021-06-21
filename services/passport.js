@@ -30,8 +30,8 @@ passport.deserializeUser((id,done) =>{
 passport.use(new GoogleStrategy({
     clientID: keys.googleClidentID,
     clientSecret: keys.googleClidentSecret,
-    callbackURL: ' /auth/google/callback',
-    proxy:true
+    callbackURL: '/auth/google/callback',
+    proxy: true
     },(accessToken,refreshToken,profile,done) =>{
         //After we loging, we add the returned user information into mongoDB
         User.findOne({googleId:profile.id})
