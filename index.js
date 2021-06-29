@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cookieSession = require('cookie-session');
 const passport = require('passport');
+const bodyParser = require('body-parser');
 const keys = require('./config/keys');
 
 // this will run the code inside
@@ -23,6 +24,10 @@ mongoose.connect(keys.mongoURI,{
 const app = express();
 
 
+//Whenever a post or put or patch have a request body, this will parser the body into
+//req.body 
+app.use(bodyParser.json());
+
 // This part: Using cookie and show the user we put.
 app.use(
     cookieSession({
@@ -40,12 +45,31 @@ app.use(passport.session());
 // const authRoutes= require('./routes/authRoutes');
 // authRoutes(app);
 require('./routes/authRoutes')(app);
-
+require('./routes/billingRoutes')(app);
 //heroku open  heroku logs
 //git status,
 //git add .
 //git commit -m "changing description"
 // git push heroku master
+
+//Below code are used to ensure when run at heroku, express recognize all routes 
+//(There can be express request, or redux routes handler and files request made by npm build)
+
+if(process.env.NODE_ENV === 'production'){
+    //if we have any routes that we do not recognize, we look up client build
+    //look for main.js file, or main.css file
+    app.use(express.static('client/build'));
+
+    //Then we will go for index.html file.
+
+    const path = require('path');
+    app.get('*',(req,res) => {
+        res.sendFile(path.resolve(__dirname,'client','build','index.html'));
+    });
+}
+
+
+
 
 
 // https://frozen-ravine-23768.herokuapp.com/ | https://git.heroku.com/frozen-ravine-23768.git

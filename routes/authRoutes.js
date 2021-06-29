@@ -14,13 +14,19 @@ module.exports = (app) =>{
     );
     
     // this request will have authorized code and google give us the profile info of user we need
-    app.get('/auth/google/callback', passport.authenticate('google'));
+    app.get(
+        '/auth/google/callback', 
+        passport.authenticate('google'),
+        (req,res) =>{
+            res.redirect('/surveys'); //tell the response to redirect to other routes.
+        }
+        );
 
     app.get('/api/logout',(req,res) => {
         // logout is attach automaticlly in req by passport.
         // it will kills the id in cookie
         req.logout();
-        res.send(req.user);
+        res.redirect('/');
     });
 
     app.get('/api/current_user',(req,res) =>{

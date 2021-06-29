@@ -21,7 +21,7 @@ passport.serializeUser((user,done) =>{
 passport.deserializeUser((id,done) =>{
     User.findById(id)
         .then(user =>{
-            done(null,user);
+            done(null,user); //This will be send to Routes's req. (in authRoutes we can send res req.user)
         });    
 });
 
@@ -33,18 +33,21 @@ passport.use(new GoogleStrategy({
     callbackURL: '/auth/google/callback',
     key:'AIzaSyDG3xjyadwIyuILKJkGwE4F-sqmp6dQBs8',
     proxy: true
-    },(accessToken,refreshToken,profile,done) =>{
+    },async (accessToken,refreshToken,profile,done) =>{
         //After we loging, we add the returned user information into mongoDB
-        User.findOne({googleId:profile.id})
-            .then((exsitingUser) =>{
-                if(exsitingUser){
-                    //if we already have a user
-                    done(null,exsitingUser);
-                }else{
-                    new User({googleId: profile.id}).save()
-                        .then(user => done(null,user)); // we pass the user for serilaizeUser further. 
-                }
-            })
-        
-    })
+        const exsitingUser = await User.findOne({googleId:profile.id})
+            if(exsitingUser){
+                //if we already have a user
+                done(null,exsitingUser);
+            }else{
+                const user = await new User({googleId: profile.id}).save()
+                done(null,user); // we pass the user for serilaizeUser further. 
+            }
+        }
+    )
 );
+
+//flow：
+        // 1. passport.use --- serilize -- deserialize
+
+//fetch will return a promise,then we got real json results by calling json()
