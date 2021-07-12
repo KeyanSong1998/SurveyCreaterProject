@@ -8,6 +8,7 @@ const keys = require('./config/keys');
 // this will run the code inside
 //since this file do not export anything, we just require it. 
 require('./models/User');
+require('./models/Survey');
 require('./services/passport');
 
 
@@ -46,6 +47,11 @@ app.use(passport.session());
 // authRoutes(app);
 require('./routes/authRoutes')(app);
 require('./routes/billingRoutes')(app);
+require('./routes/surveyRoutes')(app);
+
+
+
+
 //heroku open  heroku logs
 //git status,
 //git add .

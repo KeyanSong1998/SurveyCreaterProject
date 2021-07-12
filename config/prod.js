@@ -6,7 +6,9 @@ module.exports = {
     cookiekey: process.env.COOKIE_KEY,
     callbackURL:'https://frozen-ravine-23768.herokuapp.com/google/callback',
     stripePublishableKey: process.env.STRIPE_PUBLISHABLE_KEY,
-    stripeSecretKey:process.env.STRIPE_SECRET_KEY
+    stripeSecretKey:process.env.STRIPE_SECRET_KEY,
+    sendGridKey:process.env.SEND_GRID_KEY,
+    redirectDomain: process.env.REDIRECT_DOMAIN
 };
 
 //mongodb+srv://myuser:lWKqZsLoIg0nt8XO@cluster0.nrvac.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
